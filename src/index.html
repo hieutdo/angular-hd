@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html class="no-js" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title>Angular HD</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- build:css styles/main.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <link rel="stylesheet" href="../build/css/main.css">
+  <!-- endbuild -->
+</head>
+<body>
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to
+  improve your experience.</p>
+<![endif]-->
+
+<header ui-view="header"></header>
+<section ui-view="content"></section>
+<footer ui-view="footer"></footer>
+
+<!-- build:js scripts/vendor.js -->
+<script src="../build/js/vendor.bundle.js"></script>
+<!-- endbuild -->
+
+<!-- build:js scripts/app.js -->
+<script src="../build/js/app.bundle.js"></script>
+<script src="../build/js/templates.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>
