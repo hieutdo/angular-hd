@@ -11,7 +11,7 @@ var templateCache = require('gulp-angular-templatecache');
 var htmlmin = require('gulp-htmlmin');
 //var unpathify = require('gulp-unpathify');
 
-var exclude = ['bootstrap-sass-official', 'modernizr'];
+var exclude = ['bootstrap-sass-official'];
 var bowerPackageIds = _.difference(_.keys(require('../bower.json').dependencies), exclude);
 
 gulp.task('scripts', ['jshint', 'js:vendor', 'js:templates', 'js:app']);
