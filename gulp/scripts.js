@@ -39,6 +39,11 @@ gulp.task('js:vendor', function () {
   });
 
   return b.bundle()
+    .on('error', function (error) {
+      gutil.log(gutil.colors.red('browserify: ' + error.message));
+      gutil.beep();
+      this.end();
+    })
     .pipe(source('vendor.bundle.js'))
     .pipe(gulp.dest('build/js/'));
 });
@@ -52,8 +57,11 @@ gulp.task('js:app', function() {
 
   function rebundle() {
     return w.bundle()
-      .on('error', gutil.log)
-      .on('error', gutil.beep)
+      .on('error', function (error) {
+        gutil.log(gutil.colors.red('watchify: ' + error.message));
+        gutil.beep();
+        this.end();
+      })
       .pipe(source('app.bundle.js'))
 //      .pipe(unpathify())
       .pipe(gulp.dest('build/js/'));
