@@ -12,6 +12,14 @@ var gulpIf = require('gulp-if');
 var exclude = ['bootstrap-sass-official'];
 var bowerPackageIds = _.difference(_.keys(require('../bower.json').dependencies), exclude);
 
+gulp.task('bundle:app', function () {
+  return bundleApp(true);
+});
+
+gulp.task('bundle:app:dist', function () {
+  return bundleApp(false);
+});
+
 function bundleApp(watch) {
   var opts = watch ? _.extend(watchify.args, {debug: true}) : {};
   var bundler = browserify('./src/app/app.js', opts);
@@ -26,7 +34,7 @@ function bundleApp(watch) {
   function rebundle() {
     return bundler.bundle()
       .on('error', function (error) {
-        gutil.log(gutil.colors.red('Error while bundling app: ' + error.message));
+        gutil.log(gutil.colors.red('Error while bundling app scripts: ' + error.message));
         gutil.beep();
         this.end();
       })
@@ -41,11 +49,3 @@ function bundleApp(watch) {
 
   return rebundle();
 }
-
-gulp.task('bundle:app', function () {
-  return bundleApp(true);
-});
-
-gulp.task('bundle:app:dist', function () {
-  return bundleApp(false);
-});

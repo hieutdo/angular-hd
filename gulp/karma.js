@@ -4,6 +4,14 @@ var gulp = require('gulp');
 var path = require('path');
 var karma = require('gulp-karma');
 
+gulp.task('karma:watch', function () {
+  initKarma(false);
+});
+
+gulp.task('karma:run', function () {
+  return initKarma(true);
+});
+
 function initKarma(singleRun) {
   function Config() {
     var config = this;
@@ -29,11 +37,3 @@ function initKarma(singleRun) {
       throw err;
     });
 }
-
-gulp.task('karma:watch', function () {
-  initKarma(false);
-});
-
-gulp.task('karma:run', function () {
-  return initKarma(true);
-});

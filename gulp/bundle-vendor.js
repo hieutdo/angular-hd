@@ -11,9 +11,17 @@ var bowerResolve = require('bower-resolve');
 var exclude = ['bootstrap-sass-official'];
 var bowerPackageIds = _.difference(_.keys(require('../bower.json').dependencies), exclude);
 
+gulp.task('bundle:vendor', function () {
+  return bundleVendor(true);
+});
+
+gulp.task('bundle:vendor:dist', function () {
+  return bundleVendor(false);
+});
+
 function bundleVendor(debug) {
   var basedir = process.cwd();
-  var b = browserify({
+  var bundler = browserify({
     noparse: true,
     debug: debug
   });
@@ -22,26 +30,18 @@ function bundleVendor(debug) {
     var packagePath = bowerResolve.fastReadSync(id);
     packagePath = slash(packagePath.replace(basedir, '.'));
 
-    b.require(packagePath, {
+    bundler.require(packagePath, {
       expose: id,
       basedir: basedir
     });
   });
 
-  return b.bundle()
+  return bundler.bundle()
     .on('error', function (error) {
-      gutil.log(gutil.colors.red('Browserify > Vendor: ' + error.message));
+      gutil.log(gutil.colors.red('Error while bundling vendor scripts: ' + error.message));
       gutil.beep();
       this.end();
     })
     .pipe(source('vendor.bundle.js'))
     .pipe(gulp.dest('build/js/'));
 }
-
-gulp.task('bundle:vendor', function () {
-  return bundleVendor(true);
-});
-
-gulp.task('bundle:vendor:dist', function () {
-  return bundleVendor(false);
-});

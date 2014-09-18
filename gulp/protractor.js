@@ -4,9 +4,17 @@ var gulp = require('gulp');
 var protractor = require('gulp-protractor');
 var browserSync = require('browser-sync');
 
-// Downloads the selenium webdriver
 gulp.task('webdriver-update', protractor.webdriver_update);
+
 gulp.task('webdriver-standalone', protractor.webdriver_standalone);
+
+gulp.task('protractor', ['server:dev'], function () {
+  initProtractor();
+});
+
+gulp.task('protractor:dist', ['server:dist'], function () {
+  initProtractor();
+});
 
 function initProtractor() {
   var testFiles = [
@@ -24,11 +32,3 @@ function initProtractor() {
       browserSync.exit();
     });
 }
-
-gulp.task('protractor', ['server:dev'], function () {
-  initProtractor();
-});
-
-gulp.task('protractor:dist', ['server:dist'], function () {
-  initProtractor();
-});
