@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var httpProxy = require('http-proxy');
-var proxyConf = require('./proxy');
 
 function initBrowserSync(baseDir, files, useProxy, browser) {
   var config = {
@@ -17,10 +16,11 @@ function initBrowserSync(baseDir, files, useProxy, browser) {
 
   if (useProxy) {
     var proxy = httpProxy.createProxyServer({
-      target: proxyConf.target
+      target: buildConfig.proxy.target
     });
+
     config.server.middleware = function (req, res, next) {
-      if (req.url.indexOf(proxyConf.apiPrefix) !== -1) {
+      if (req.url.indexOf(buildConfig.proxy.apiPrefix) !== -1) {
         proxy.web(req, res);
       } else {
         next();

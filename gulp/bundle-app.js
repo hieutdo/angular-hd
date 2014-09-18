@@ -9,9 +9,6 @@ var source = require('vinyl-source-stream');
 var unpathify = require('gulp-unpathify');
 var gulpIf = require('gulp-if');
 
-var exclude = ['bootstrap-sass-official'];
-var bowerPackageIds = _.difference(_.keys(require('../bower.json').dependencies), exclude);
-
 gulp.task('bundle:app', function () {
   return bundleApp(true);
 });
@@ -23,11 +20,12 @@ gulp.task('bundle:app:dist', function () {
 function bundleApp(watch) {
   var opts = watch ? _.extend(watchify.args, {debug: true}) : {};
   var bundler = browserify('./src/app/app.js', opts);
+
   if (watch) {
     bundler = watchify(bundler);
   }
 
-  bowerPackageIds.forEach(function (lib) {
+  buildConfig.bower.packageIds.forEach(function (lib) {
     bundler.external(lib);
   });
 

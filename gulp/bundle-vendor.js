@@ -1,15 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var slash = require('slash');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var bowerResolve = require('bower-resolve');
-
-var exclude = ['bootstrap-sass-official'];
-var bowerPackageIds = _.difference(_.keys(require('../bower.json').dependencies), exclude);
 
 gulp.task('bundle:vendor', function () {
   return bundleVendor(true);
@@ -26,7 +22,7 @@ function bundleVendor(debug) {
     debug: debug
   });
 
-  bowerPackageIds.forEach(function (id) {
+  buildConfig.bower.packageIds.forEach(function (id) {
     var packagePath = bowerResolve.fastReadSync(id);
     packagePath = slash(packagePath.replace(basedir, '.'));
 
