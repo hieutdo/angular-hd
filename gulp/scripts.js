@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var slash = require('slash');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var browserify = require('browserify');
@@ -31,10 +32,15 @@ gulp.task('js:templates', function () {
 
 gulp.task('js:vendor', function () {
   var b = browserify({debug: true});
+  var basedir = process.cwd();
 
   bowerPackageIds.forEach(function (id) {
-    b.require(bowerResolve.fastReadSync(id), {
-       expose: id
+    var packagePath = bowerResolve.fastReadSync(id);
+    packagePath = slash(packagePath.replace(basedir, '.'));
+
+    b.require(packagePath, {
+      expose: id,
+      basedir: basedir
     });
   });
 
@@ -49,7 +55,7 @@ gulp.task('js:vendor', function () {
 });
 
 gulp.task('js:app', function() {
-  var w = watchify(browserify('./src/app/app.js', _.extend(watchify.args, {debug: true, fullPaths: false})));
+  var w = watchify(browserify('./src/app/app.js', _.extend(watchify.args, {debug: true})));
 
   bowerPackageIds.forEach(function (lib) {
     w.external(lib);
