@@ -8,5 +8,5 @@ gulp.task('serve', function () {
 });
 
 gulp.task('serve:dist', function () {
-  runSequence('clean', ['scripts', 'styles', 'assets'], 'karma:run', 'compile', 'server:dist');
+  runSequence('clean', ['scripts:dist', 'styles', 'assets'], 'karma:run', 'compile', 'server:dist');
 });

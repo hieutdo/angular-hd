@@ -1,0 +1,51 @@
+'use strict';
+
+var _ = require('lodash');
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var source = require('vinyl-source-stream');
+var unpathify = require('gulp-unpathify');
+var gulpIf = require('gulp-if');
+
+var exclude = ['bootstrap-sass-official'];
+var bowerPackageIds = _.difference(_.keys(require('../bower.json').dependencies), exclude);
+
+function bundleApp(watch) {
+  var opts = watch ? _.extend(watchify.args, {debug: true}) : {};
+  var bundler = browserify('./src/app/app.js', opts);
+  if (watch) {
+    bundler = watchify(bundler);
+  }
+
+  bowerPackageIds.forEach(function (lib) {
+    bundler.external(lib);
+  });
+
+  function rebundle() {
+    return bundler.bundle()
+      .on('error', function (error) {
+        gutil.log(gutil.colors.red('Error while bundling app: ' + error.message));
+        gutil.beep();
+        this.end();
+      })
+      .pipe(source('app.bundle.js'))
+      .pipe(gulpIf(!watch, unpathify()))
+      .pipe(gulp.dest('build/js/'));
+  }
+
+  if (watch) {
+    bundler.on('update', rebundle);
+  }
+
+  return rebundle();
+}
+
+gulp.task('bundle:app', function () {
+  return bundleApp(true);
+});
+
+gulp.task('bundle:app:dist', function () {
+  return bundleApp(false);
+});
