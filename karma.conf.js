@@ -7,7 +7,7 @@ module.exports = function (config) {
       'build/js/vendor.bundle.js',
       'build/js/app.bundle.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'src/app/**/*.spec.js'
+      'test/unit/**/*.js'
     ],
     reporters: ['progress'],
     frameworks: ['jasmine'],
