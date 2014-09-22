@@ -25,7 +25,7 @@ function bundleApp(watch) {
     bundler = watchify(bundler);
   }
 
-  buildConfig.bower.packageIds.forEach(function (lib) {
+  buildConfig.browserify.vendorPackageIds.forEach(function (lib) {
     bundler.external(lib);
   });
 

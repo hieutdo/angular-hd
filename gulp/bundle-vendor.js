@@ -22,7 +22,7 @@ function bundleVendor(debug) {
     debug: debug
   });
 
-  buildConfig.bower.packageIds.forEach(function (id) {
+  buildConfig.browserify.vendorPackageIds.forEach(function (id) {
     var packagePath = bowerResolve.fastReadSync(id);
     packagePath = slash(packagePath.replace(basedir, '.'));
 

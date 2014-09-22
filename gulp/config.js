@@ -2,16 +2,20 @@
 
 var _ = require('lodash');
 
+function getBowerPackageIds(exclude) {
+  return _.difference(_.keys(require('../bower.json').dependencies), exclude);
+}
+
 var buildConfig = {
   proxy: {
     target: 'http://localhost:8080',
     apiPrefix: 'api'
   },
-  bower: {
+  browserify: {
     exclude: ['bootstrap-sass-official']
   }
 };
 
-buildConfig.bower.packageIds = _.difference(_.keys(require('../bower.json').dependencies), buildConfig.bower.exclude);
+buildConfig.browserify.vendorPackageIds = getBowerPackageIds(buildConfig.browserify.exclude);
 
 global.buildConfig = buildConfig;
