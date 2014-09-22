@@ -1,7 +1,7 @@
 'use strict';
 
 /*@ngInject*/
-module.exports = function ($scope) {
+function HomeController($scope) {
   $scope.awesomeThings = [
     {
       'key': 'angular',
@@ -64,4 +64,6 @@ module.exports = function ($scope) {
   angular.forEach($scope.awesomeThings, function (awesomeThing) {
     awesomeThing.rank = Math.random();
   });
-};
+}
+
+module.exports = HomeController;

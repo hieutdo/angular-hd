@@ -1,9 +1,9 @@
 'use strict';
 
 /*@ngInject*/
-module.exports = function ($stateProvider) {
+function HomeRoutes($stateProvider) {
   $stateProvider
-    .state('root.home', {
+    .state('app.home', {
       url: '',
       views: {
         'content@': {
@@ -12,4 +12,6 @@ module.exports = function ($stateProvider) {
         }
       }
     });
-};
+}
+
+module.exports = HomeRoutes;
