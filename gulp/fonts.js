@@ -6,8 +6,8 @@ var flatten = require('gulp-flatten');
 var bowerFiles = require('main-bower-files');
 
 gulp.task('fonts', function () {
-  return gulp.src(bowerFiles().concat('src/assets/fonts/**/*'))
+  return gulp.src(bowerFiles().concat('fonts/**/*'))
     .pipe(filter('**/*.{eot,svg,ttf,woff}'))
     .pipe(flatten())
-    .pipe(gulp.dest('dist/assets/fonts'));
+    .pipe(gulp.dest('dist/fonts'));
 });

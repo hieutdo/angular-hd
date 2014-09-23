@@ -34,10 +34,10 @@ function initBrowserSync(baseDir, files, useProxy, browser) {
 gulp.task('server:dev', function () {
   var baseDir = ['.', 'src'];
   var files = [
-    'build/css/*.css',
-    'build/js/*.js',
     'src/index.html',
-    'src/assets/**/*'
+    'build/**/*',
+    'images/**/*',
+    'fonts/**/*'
   ];
   initBrowserSync(baseDir, files, false);
 });

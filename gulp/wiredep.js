@@ -4,9 +4,9 @@ var gulp = require('gulp');
 var wiredep = require('wiredep').stream;
 
 gulp.task('wiredep', function () {
-  gulp.src('src/styles/sass/main.scss')
+  gulp.src('styles/sass/main.scss')
     .pipe(wiredep())
-    .pipe(gulp.dest('src/styles/sass'));
+    .pipe(gulp.dest('styles/sass'));
 
   gulp.src('src/index.html')
     .pipe(wiredep({

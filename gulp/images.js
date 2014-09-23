@@ -5,11 +5,11 @@ var cache = require('gulp-cache');
 var imagemin = require('gulp-imagemin');
 
 gulp.task('images', function () {
-  return gulp.src('src/assets/images/**/*')
-    .pipe(cache(imagemin({
+  return gulp.src('images/**/*')
+    .pipe(imagemin({
       optimizationLevel: 3,
       progressive: true,
       interlaced: true
-    })))
-    .pipe(gulp.dest('dist/assets/images'));
+    }))
+    .pipe(gulp.dest('dist/images'));
 });

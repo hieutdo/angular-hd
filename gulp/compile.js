@@ -27,7 +27,7 @@ gulp.task('compile', function () {
 
     // process css
     .pipe(cssFilter)
-    .pipe(replace('../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap', '../assets/fonts'))
+    .pipe(replace('../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap', '../fonts'))
     .pipe(csso())
     .pipe(cssFilter.restore())
 

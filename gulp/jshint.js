@@ -6,7 +6,7 @@ var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 
 gulp.task('jshint', function () {
-  return gulp.src('src/app/**/*.js')
+  return gulp.src('src/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(plumber())

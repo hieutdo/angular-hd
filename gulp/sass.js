@@ -6,7 +6,7 @@ var rubySass = require('gulp-ruby-sass');
 var autoPrefixer = require('gulp-autoprefixer');
 
 gulp.task('sass', function () {
-  return gulp.src('src/styles/sass/main.scss')
+  return gulp.src('styles/sass/main.scss')
     .pipe(plumber())
     .pipe(rubySass({style: 'expanded'}))
     .pipe(autoPrefixer('last 3 version'))
