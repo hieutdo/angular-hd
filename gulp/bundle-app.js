@@ -19,7 +19,11 @@ gulp.task('bundle:app:dist', function () {
 
 function bundleApp(watch) {
   var opts = watch ? _.extend(watchify.args, {debug: true}) : {};
-  var bundler = browserify(['./src/app', './src/mock_backend'], opts);
+  var entries = ['./src/app'];
+  if (global.useMockBackend) {
+    entries.push('./src/mock_backend');
+  }
+  var bundler = browserify(entries, opts);
 
   if (watch) {
     bundler = watchify(bundler);

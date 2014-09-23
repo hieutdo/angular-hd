@@ -17,6 +17,9 @@ var buildConfig = {
 };
 
 buildConfig.browserify.vendorPackageIds = getBowerPackageIds(buildConfig.browserify.exclude);
-buildConfig.browserify.vendorPackageIds.push('angular-mocks');
+
+if (global.useMockBackend) {
+  buildConfig.browserify.vendorPackageIds.push('angular-mocks');
+}
 
 global.buildConfig = buildConfig;
