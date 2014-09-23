@@ -1,16 +1,19 @@
 'use strict';
 
 /*@ngInject*/
-function LoginController($scope, $http) {
-  $scope.loginStatus = {
-    message: null,
-    type: null
-  };
-
+function LoginController($scope, User, Session) {
   $scope.login = function (user) {
-    $http.post('/login', user).then(function (res) {
+    $scope.loginStatus = {
+      message: null,
+      type: null
+    };
+
+    User.login(user).$promise.then(function (res) {
       $scope.loginStatus.message = 'Login successfully!';
       $scope.loginStatus.type = 'success';
+
+      // store user in session
+      Session.put('user', res);
     }, function (error) {
       $scope.loginStatus.message = error.data.message;
       $scope.loginStatus.type = 'danger';

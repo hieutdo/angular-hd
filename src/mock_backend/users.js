@@ -17,8 +17,8 @@ function UsersMock($httpBackend) {
   });
 
   $httpBackend.whenPOST('/login').respond(function (method, url, data) {
-    var user = angular.fromJson(data);
-    for (var i = 0; i < users.length; i++) {
+    var i, user = angular.fromJson(data);
+    for (i = 0; i < users.length; i++) {
       if (users[i].username === user.username && users[i].password === user.password) {
         return [200, users[i]];
       }

@@ -7,7 +7,7 @@ function LoginRoutes($stateProvider) {
       url: 'login',
       views: {
         'content@': {
-          templateUrl: 'app/login/views/login.html',
+          templateUrl: 'app/user/views/login.html',
           controller: 'LoginController'
         }
       }
