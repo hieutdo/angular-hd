@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6">
+      <form name="loginForm" role="form" ng-submit="login(user)" novalidate>
+        <div class="form-group">
+          <input type="text" class="form-control" name="username" ng-model="user.username" placeholder="Username" required/>
+          <span class="help-block" ng-show="loginForm.username.$dirty && loginForm.username.$invalid">Please enter a valid username</span>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" ng-model="user.password" placeholder="Password" required/>
+          <span class="help-block" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">Please enter a valid password</span>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit" ng-disabled="loginForm.$invalid">Login</button>
+        </div>
+        <div ng-if="loginStatus.message" class="alert alert-{{ loginStatus.type }}">{{ loginStatus.message }}</div>
+      </form>
+    </div>
+  </div>
+</div>
