@@ -6,7 +6,7 @@ var runSequence = require('run-sequence');
 gulp.task('serve', function () {
   runSequence(
     ['scripts', 'styles', 'watch'],
-    'karma:watch',
+    'karma:dev',
     'server:dev'
   );
 });
@@ -15,8 +15,8 @@ gulp.task('serve:dist', function () {
   runSequence(
     'clean',
     ['scripts:dist', 'styles', 'assets'],
-    'karma:run',
     'compile',
+    'karma:dist',
     'server:dist'
   );
 });
