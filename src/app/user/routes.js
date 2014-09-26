@@ -10,6 +10,11 @@ function UserRoutes($stateProvider) {
           templateUrl: 'app/user/views/user.html',
           controller: 'UserListController'
         }
+      },
+      resolve: {
+        users: function (User) {
+          return User.findAll();
+        }
       }
     });
 }

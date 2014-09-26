@@ -21,7 +21,7 @@ angular.module('app')
 
           $timeout(function () {
             deferred.resolve(response);
-          }, 500);
+          }, 200);
 
           return deferred.promise;
         }
