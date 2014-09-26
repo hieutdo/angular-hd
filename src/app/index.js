@@ -1,7 +1,8 @@
 'use strict';
 
 require('angular');
-require('angular-resource');
+require('angular-cache');
+require('angular-data');
 require('angular-bootstrap');
 require('angular-ui-router');
 

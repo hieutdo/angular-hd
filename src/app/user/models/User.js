@@ -1,14 +1,11 @@
 'use strict';
 
 /*@ngInject*/
-function UserFactory($resource) {
-  var User = $resource('/users/:userId', null, {
-    login: {
-      method: 'POST',
-      url: '/login'
-    }
+function UserModel(DS, apiBaseUrl) {
+  return DS.defineResource({
+    name: 'user',
+    endpoint: apiBaseUrl + 'users'
   });
-  return User;
 }
 
-module.exports = UserFactory;
+module.exports = UserModel;

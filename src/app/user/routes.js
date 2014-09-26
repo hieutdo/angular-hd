@@ -1,17 +1,17 @@
 'use strict';
 
 /*@ngInject*/
-function LoginRoutes($stateProvider) {
+function UserRoutes($stateProvider) {
   $stateProvider
-    .state('app.login', {
-      url: 'login',
+    .state('app.user', {
+      url: 'user',
       views: {
         'content@': {
-          templateUrl: 'app/user/views/login.html',
-          controller: 'LoginController'
+          templateUrl: 'app/user/views/user.html',
+          controller: 'UserListController'
         }
       }
     });
 }
 
-module.exports = LoginRoutes;
+module.exports = UserRoutes;

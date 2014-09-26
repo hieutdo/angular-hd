@@ -1,9 +1,18 @@
 'use strict';
 
 var _ = require('lodash');
+var path = require('path');
+var mainBowerFiles = require('main-bower-files');
 
-function getBowerPackageIds(exclude) {
-  return _.difference(_.keys(require('../bower.json').dependencies), exclude);
+function getBowerPackageIds() {
+  var jsFiles = mainBowerFiles({
+    filter: function (filename) {
+      return path.extname(filename) === '.js' ? filename : null;
+    }
+  });
+  return _.map(jsFiles, function (filename) {
+    return filename.split(path.sep)[1];
+  });
 }
 
 var buildConfig = {
@@ -12,11 +21,9 @@ var buildConfig = {
     apiPrefix: 'api'
   },
   browserify: {
-    exclude: ['bootstrap-sass-official']
+    vendorPackageIds: getBowerPackageIds()
   }
 };
-
-buildConfig.browserify.vendorPackageIds = getBowerPackageIds(buildConfig.browserify.exclude);
 
 if (global.useMockBackend) {
   buildConfig.browserify.vendorPackageIds.push('angular-mocks');

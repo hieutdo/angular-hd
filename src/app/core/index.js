@@ -1,10 +1,17 @@
 'use strict';
 
 module.exports = angular.module('app.core', [
-  'ngResource',
+  'angular-data.DSCacheFactory',
+  'angular-data.DS',
 
   'ui.bootstrap',
   'ui.router'
 ])
   .config(require('./routes'))
-  .factory('Session', require('./models/Session'));
+
+  .constant('regexEscape', require('./utils/regexEscape'))
+
+  .factory('appConfig', require('./config'))
+  .factory('apiBaseUrl', function (appConfig) {
+    return appConfig.api.protocol + '://' + appConfig.api.host + ':' + appConfig.api.port + appConfig.api.path + '/';
+  });
