@@ -29,14 +29,14 @@ function bundleApp(watch) {
     bundler = watchify(bundler);
   }
 
-  buildConfig.browserify.vendorPackageIds.forEach(function (lib) {
-    bundler.external(lib);
+  _.forEach(buildConfig.vendorPackages, function (requirePath, packageId) {
+    bundler.external(packageId);
   });
 
   function rebundle() {
     return bundler.bundle()
       .on('error', function (error) {
-        gutil.log(gutil.colors.red('Error while bundling app scripts: ' + error.message));
+        gutil.log(gutil.colors.red('bundle:app >>> ' + error.message));
         gutil.beep();
         this.end();
       })

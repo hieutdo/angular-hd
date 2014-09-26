@@ -1,11 +1,10 @@
 'use strict';
 
+var _ = require('lodash');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var slash = require('slash');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-var bowerResolve = require('bower-resolve');
 
 gulp.task('bundle:vendor', function () {
   return bundleVendor(true);
@@ -22,19 +21,16 @@ function bundleVendor(debug) {
     debug: debug
   });
 
-  buildConfig.browserify.vendorPackageIds.forEach(function (id) {
-    var packagePath = bowerResolve.fastReadSync(id);
-    packagePath = slash(packagePath.replace(basedir, '.'));
-
-    bundler.require(packagePath, {
-      expose: id,
+  _.forEach(buildConfig.vendorPackages, function (requirePath, packageId) {
+    bundler.require(requirePath, {
+      expose: packageId,
       basedir: basedir
     });
   });
 
   return bundler.bundle()
     .on('error', function (error) {
-      gutil.log(gutil.colors.red('Error while bundling vendor scripts: ' + error.message));
+      gutil.log(gutil.colors.red('bundle:vendor >>> ' + error.message));
       gutil.beep();
       this.end();
     })

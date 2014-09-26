@@ -9,8 +9,6 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('styles/sass'));
 
   gulp.src('src/index.html')
-    .pipe(wiredep({
-      exclude: ['bootstrap-sass-official']
-    }))
+    .pipe(wiredep())
     .pipe(gulp.dest('src'));
 });

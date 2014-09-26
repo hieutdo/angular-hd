@@ -2,17 +2,21 @@
 
 var _ = require('lodash');
 var path = require('path');
-var mainBowerFiles = require('main-bower-files');
+var slash = require('slash');
+var bowerFiles = require('main-bower-files')();
 
-function getBowerPackageIds() {
-  var jsFiles = mainBowerFiles({
-    filter: function (filename) {
-      return path.extname(filename) === '.js' ? filename : null;
+function getVendorPackages(bowerFiles) {
+  var packageMap = {}, packageId, requirePath;
+
+  _.forEach(bowerFiles, function (filename) {
+    if (path.extname(filename) === '.js') {
+      packageId = filename.split(path.sep)[1];
+      requirePath = './' + slash(filename);
+      packageMap[packageId] = requirePath;
     }
   });
-  return _.map(jsFiles, function (filename) {
-    return filename.split(path.sep)[1];
-  });
+
+  return packageMap;
 }
 
 var buildConfig = {
@@ -20,13 +24,12 @@ var buildConfig = {
     target: 'http://localhost:8080',
     apiPrefix: 'api'
   },
-  browserify: {
-    vendorPackageIds: getBowerPackageIds()
-  }
+  bowerFiles: bowerFiles,
+  vendorPackages: getVendorPackages(bowerFiles)
 };
 
 if (global.useMockBackend) {
-  buildConfig.browserify.vendorPackageIds.push('angular-mocks');
+  buildConfig.vendorPackages['angular-mocks'] = './bower_components/angular-mocks/angular-mocks.js';
 }
 
 global.buildConfig = buildConfig;
